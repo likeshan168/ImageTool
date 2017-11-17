@@ -35,12 +35,12 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblImgCounts = new System.Windows.Forms.Label();
             this.progressMsg = new System.Windows.Forms.Label();
             this.msg = new System.Windows.Forms.LinkLabel();
             this.picBox = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.openImgDialog = new System.Windows.Forms.OpenFileDialog();
-            this.lblImgCounts = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -117,6 +117,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "展示区";
             // 
+            // lblImgCounts
+            // 
+            this.lblImgCounts.AutoSize = true;
+            this.lblImgCounts.Location = new System.Drawing.Point(139, 24);
+            this.lblImgCounts.Name = "lblImgCounts";
+            this.lblImgCounts.Size = new System.Drawing.Size(83, 12);
+            this.lblImgCounts.TabIndex = 7;
+            this.lblImgCounts.Text = "导出图片数：0";
+            // 
             // progressMsg
             // 
             this.progressMsg.AutoSize = true;
@@ -152,15 +161,6 @@
             // openImgDialog
             // 
             this.openImgDialog.RestoreDirectory = true;
-            // 
-            // lblImgCounts
-            // 
-            this.lblImgCounts.AutoSize = true;
-            this.lblImgCounts.Location = new System.Drawing.Point(139, 24);
-            this.lblImgCounts.Name = "lblImgCounts";
-            this.lblImgCounts.Size = new System.Drawing.Size(83, 12);
-            this.lblImgCounts.TabIndex = 7;
-            this.lblImgCounts.Text = "导出图片数：0";
             // 
             // MainFrm
             // 
