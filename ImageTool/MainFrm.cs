@@ -128,7 +128,7 @@ namespace ImageTool
             }
             msg.Visible = false;
             lblImgCounts.Text = $"导出图片数：{count}";
-            MessageBox.Show($"导出导出：{count}张图片", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"导出：{count}张图片", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
