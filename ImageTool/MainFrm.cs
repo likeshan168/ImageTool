@@ -4,11 +4,13 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using MetroFramework;
+using MetroFramework.Forms;
 using Utility;
 
 namespace ImageTool
 {
-    public partial class MainFrm : Form
+    public partial class MainFrm : MetroForm
     {
         private DataTable dataTable = new DataTable();
         private string img = string.Empty;
@@ -46,7 +48,7 @@ namespace ImageTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"选择图片异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, $"选择图片异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -66,7 +68,7 @@ namespace ImageTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"导入Excel异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, $"导入Excel异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -76,12 +78,12 @@ namespace ImageTool
             {
                 if (dataTable.Rows.Count == 0)
                 {
-                    MessageBox.Show($"请选择Excel文件", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MetroMessageBox.Show(this, $"请选择Excel文件", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 if (string.IsNullOrWhiteSpace(img))
                 {
-                    MessageBox.Show($"请选择图片文件", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MetroMessageBox.Show(this, $"请选择图片文件", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 if (DialogResult.OK == folderBrowserDialog.ShowDialog())
@@ -98,7 +100,7 @@ namespace ImageTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"导出图片异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, $"导出图片异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ThreadImportExcel()
@@ -128,7 +130,7 @@ namespace ImageTool
             }
             msg.Visible = false;
             lblImgCounts.Text = $"导出图片数：{count}";
-            MessageBox.Show($"导出：{count}张图片", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MetroMessageBox.Show(this, $"导出：{count}张图片", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
