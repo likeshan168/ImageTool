@@ -6,11 +6,12 @@ using System.Threading;
 using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
+using Syncfusion.Windows.Forms;
 using Utility;
 
 namespace ImageTool
 {
-    public partial class MainFrm : MetroForm
+    public partial class MainFrm : Syncfusion.Windows.Forms.Office2010Form
     {
         private DataTable dataTable = new DataTable();
         private string img = string.Empty;
@@ -48,7 +49,7 @@ namespace ImageTool
             }
             catch (Exception ex)
             {
-                MetroMessageBox.Show(this, $"选择图片异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv.Show(this, $"选择图片异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -68,7 +69,7 @@ namespace ImageTool
             }
             catch (Exception ex)
             {
-                MetroMessageBox.Show(this, $"导入Excel异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv.Show(this, $"导入Excel异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -78,17 +79,17 @@ namespace ImageTool
             {
                 if (dataTable.Rows.Count == 0)
                 {
-                    MetroMessageBox.Show(this, $"请选择Excel文件", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxAdv.Show(this, $"请选择Excel文件", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 if (string.IsNullOrWhiteSpace(img))
                 {
-                    MetroMessageBox.Show(this, $"请选择图片文件", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxAdv.Show(this, $"请选择图片文件", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 if (DialogResult.OK == folderBrowserDialog.ShowDialog())
                 {
-                    if (!string.IsNullOrWhiteSpace(folder = folderBrowserDialog.SelectedPath))
+                    if (!string.IsNullOrWhiteSpace(folder = folderBrowserDialog.DirectoryPath))
                     {
                         msg.Text = "正在导出图片...";
                         msg.Visible = true;
@@ -100,7 +101,7 @@ namespace ImageTool
             }
             catch (Exception ex)
             {
-                MetroMessageBox.Show(this, $"导出图片异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv.Show(this, $"导出图片异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ThreadImportExcel()
@@ -115,7 +116,7 @@ namespace ImageTool
         {
             var excelHelper = new ExcelHelper(openFileDialog.FileName);
             dataTable = excelHelper.ExcelToDataTable(string.Empty, true);
-            dataGridView.DataSource = dataTable;
+            dataGridView.DataSource = dataTable.AsDataView();
             msg.Visible = false;
             progressMsg.Text = $"总条数：{dataTable.Rows.Count}";
         }
@@ -130,7 +131,7 @@ namespace ImageTool
             }
             msg.Visible = false;
             lblImgCounts.Text = $"导出图片数：{count}";
-            MetroMessageBox.Show(this, $"导出：{count}张图片", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxAdv.Show(this, $"导出：{count}张图片", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
