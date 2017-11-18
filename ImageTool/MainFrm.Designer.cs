@@ -41,7 +41,7 @@
             this.picBox = new System.Windows.Forms.PictureBox();
             this.openImgDialog = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog = new Syncfusion.Windows.Forms.FolderBrowser(this.components);
-            this.dataGridView = new Syncfusion.Windows.Forms.Grid.GridDataBoundGrid();
+            this.dataGridView = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
             this.grp1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
@@ -156,20 +156,27 @@
             // 
             // dataGridView
             // 
-            this.dataGridView.AllowDragSelectedCols = true;
+            this.dataGridView.AlphaBlendSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(94)))), ((int)(((byte)(171)))), ((int)(((byte)(222)))));
+            this.dataGridView.BackColor = System.Drawing.SystemColors.Window;
+            this.dataGridView.ColorStyles = Syncfusion.Windows.Forms.ColorStyles.Office2010Black;
             this.dataGridView.GridOfficeScrollBars = Syncfusion.Windows.Forms.OfficeScrollBars.Metro;
-            this.dataGridView.GridVisualStyles = Syncfusion.Windows.Forms.GridVisualStyles.Office2010Black;
+            this.dataGridView.GridVisualStyles = Syncfusion.Windows.Forms.GridVisualStyles.Metro;
             this.dataGridView.Location = new System.Drawing.Point(21, 56);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.OptimizeInsertRemoveCells = true;
             this.dataGridView.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
-            this.dataGridView.Size = new System.Drawing.Size(421, 270);
-            this.dataGridView.SmartSizeBox = false;
-            this.dataGridView.SortBehavior = Syncfusion.Windows.Forms.Grid.GridSortBehavior.DoubleClick;
-            this.dataGridView.TabIndex = 11;
-            this.dataGridView.Text = "gridDataBoundGrid1";
-            this.dataGridView.UseListChangedEvent = true;
+            this.dataGridView.Size = new System.Drawing.Size(421, 273);
+            this.dataGridView.TabIndex = 10;
+            this.dataGridView.TableDescriptor.AllowNew = false;
+            this.dataGridView.TableDescriptor.TableOptions.CaptionRowHeight = 29;
+            this.dataGridView.TableDescriptor.TableOptions.ColumnHeaderRowHeight = 25;
+            this.dataGridView.TableDescriptor.TableOptions.RecordRowHeight = 25;
+            this.dataGridView.TableOptions.ColumnsMaxLengthStrategy = Syncfusion.Windows.Forms.Grid.Grouping.GridColumnsMaxLengthStrategy.FirstNRecords;
+            this.dataGridView.TableOptions.ListBoxSelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.dataGridView.Text = "gridGroupingControl1";
+            this.dataGridView.TopLevelGroupOptions.ShowAddNewRecordBeforeDetails = false;
+            this.dataGridView.TopLevelGroupOptions.ShowCaption = false;
             this.dataGridView.UseRightToLeftCompatibleTextBox = true;
+            this.dataGridView.VersionInfo = "15.4460.0.17";
             // 
             // MainFrm
             // 
@@ -202,7 +209,7 @@
         private MetroFramework.Controls.MetroLabel lblImgCounts;
         private MetroFramework.Controls.MetroLabel progressMsg;
         private Syncfusion.Windows.Forms.FolderBrowser folderBrowserDialog;
-        private Syncfusion.Windows.Forms.Grid.GridDataBoundGrid dataGridView;
+        private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl dataGridView;
     }
 }
 

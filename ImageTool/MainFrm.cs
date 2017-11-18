@@ -116,6 +116,7 @@ namespace ImageTool
         {
             var excelHelper = new ExcelHelper(openFileDialog.FileName);
             dataTable = excelHelper.ExcelToDataTable(string.Empty, true);
+            
             dataGridView.DataSource = dataTable.AsDataView();
             msg.Visible = false;
             progressMsg.Text = $"总条数：{dataTable.Rows.Count}";
