@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using MetroFramework;
@@ -191,7 +192,7 @@ namespace ImageTool
                         var imgs = Directory.GetFiles(folder2);
                         var fileNames = imgs.Select(Path.GetFileNameWithoutExtension).ToList();
                         PrintDocument pd;
-                        
+
                         msg2.Visible = true;
                         foreach (DataRow row in dataTable2.Rows)
                         {
@@ -212,14 +213,15 @@ namespace ImageTool
                             Margins margin = new Margins(20, 20, 20, 20);
                             pd.DefaultPageSettings.Margins = margin;
                             ////纸张设置默认
-                            //PaperSize pageSize = new PaperSize("First custom size", 800, 600);
-                            //pd.DefaultPageSettings.PaperSize = pageSize;
+                            //PaperSize pageSize = new PaperSize();
+                            //pd.DefaultPageSettings.PaperSize = ;
                             //打印事件设置
                             pd.PrintPage += pd_PrintPage;
                             //ppd.Document = pd;
                             //ppd.ShowDialog();
 
                             pd.Print();
+                            break;
                         }
                         msg2.Visible = false;
                     }
@@ -233,16 +235,35 @@ namespace ImageTool
         }
 
         private string imgFile = string.Empty;
+        private float width = (float)MillimetersToPixelsWidth(210);
+        private float height = (float)MillimetersToPixelsWidth(297);
+
         private void pd_PrintPage(object sender, PrintPageEventArgs e)
         {
             //读取图片模板
             var temp = Image.FromFile(imgFile);
             int x = e.MarginBounds.X;
             int y = e.MarginBounds.Y;
-            int width = temp.Width;
-            int height = temp.Height;
-            Rectangle destRect = new Rectangle(x, y, width, height);
-            e.Graphics.DrawImage(temp, destRect, 0, 0, temp.Width, temp.Height, GraphicsUnit.Pixel);
+            //int width = temp.Width;
+            //int height = temp.Height;
+            //Rectangle destRect = new Rectangle(x, y, (int)width, (int)height);
+            //A4纸尺寸：210×297；
+            //e.Graphics.DrawImage(temp, destRect, 0, 0, width, height, GraphicsUnit.Pixel);
+            //自适应大小
+            e.Graphics.DrawImage(temp, e.MarginBounds);
         }
+
+        private static double MillimetersToPixelsWidth(double length) //length是毫米，1厘米=10毫米
+        {
+            Panel p = new Panel();
+            Graphics g = Graphics.FromHwnd(p.Handle);
+            IntPtr hdc = g.GetHdc();
+            int width = GetDeviceCaps(hdc, 4);     // HORZRES 
+            int pixels = GetDeviceCaps(hdc, 8);     // BITSPIXEL
+            g.ReleaseHdc(hdc);
+            return ((pixels / (double)width) * length);
+        }
+        [DllImport("gdi32.dll")]
+        private static extern int GetDeviceCaps(IntPtr hdc, int index);
     }
 }
