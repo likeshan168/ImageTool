@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using MetroFramework;
@@ -14,8 +16,10 @@ namespace ImageTool
     public partial class MainFrm : Syncfusion.Windows.Forms.Office2010Form
     {
         private DataTable dataTable = new DataTable();
+        private DataTable dataTable2 = new DataTable();
         private string img = string.Empty;
         private string folder = string.Empty;
+        private string folder2 = string.Empty;
         SynchronizationContext syncContext = null;
         public MainFrm()
         {
@@ -95,7 +99,7 @@ namespace ImageTool
                         msg.Visible = true;
                         progressMsg.Text = $"导出进度：0/{dataTable.Rows.Count}";
                         progressMsg.Visible = true;
-                        new Thread(new ThreadStart(ThreadExportImgs)).Start();
+                        new Thread(ThreadExportImgs).Start();
                     }
                 }
             }
@@ -108,6 +112,11 @@ namespace ImageTool
         {
             syncContext.Post(ImportExcel, null);
         }
+
+        private void ThreadImportExcel2()
+        {
+            syncContext.Post(ImportExcel2, null);
+        }
         private void ThreadExportImgs()
         {
             syncContext.Post(OutputImgs, null);
@@ -116,10 +125,20 @@ namespace ImageTool
         {
             var excelHelper = new ExcelHelper(openFileDialog.FileName);
             dataTable = excelHelper.ExcelToDataTable(string.Empty, true);
-            
+
             dataGridView.DataSource = dataTable.AsDataView();
             msg.Visible = false;
             progressMsg.Text = $"总条数：{dataTable.Rows.Count}";
+        }
+
+        private void ImportExcel2(object message)
+        {
+            var excelHelper = new ExcelHelper(openFileDialog.FileName);
+            dataTable2 = excelHelper.ExcelToDataTable(string.Empty, true);
+
+            dgv2.DataSource = dataTable2.AsDataView();
+            msg2.Visible = false;
+            progressMsg2.Text = $"总条数：{dataTable2.Rows.Count}";
         }
         private void OutputImgs(object obj)
         {
@@ -133,6 +152,97 @@ namespace ImageTool
             msg.Visible = false;
             lblImgCounts.Text = $"导出图片数：{count}";
             MessageBoxAdv.Show(this, $"导出：{count}张图片", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnImportPrintData_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DialogResult.OK == openFileDialog.ShowDialog())
+                {
+                    if (openFileDialog.CheckFileExists)
+                    {
+                        msg2.Visible = true;
+                        msg2.Text = "正在导入...";
+                        new Thread(ThreadImportExcel2).Start();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxAdv.Show(this, $"导入Excel异常：{ex.Message}", "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void batchPrint_Click(object sender, EventArgs e)
+        {
+            if (dataTable2.Rows.Count == 0)
+            {
+                MessageBoxAdv.Show(this, $"请导入Excel文件", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (DialogResult.OK == folderBrowserDialog.ShowDialog())
+            {
+                if (!string.IsNullOrWhiteSpace(folder2 = folderBrowserDialog.DirectoryPath))
+                {
+                    try
+                    {
+                        var imgs = Directory.GetFiles(folder2);
+                        var fileNames = imgs.Select(Path.GetFileNameWithoutExtension).ToList();
+                        PrintDocument pd;
+                        
+                        msg2.Visible = true;
+                        foreach (DataRow row in dataTable2.Rows)
+                        {
+                            var value = row.Field<string>(0);
+                            if (string.IsNullOrWhiteSpace(value) || !fileNames.Contains(value))
+                            {
+                                continue;
+                            }
+
+                            imgFile = imgs.FirstOrDefault(p => Path.GetFileNameWithoutExtension(p) == value);
+                            if (string.IsNullOrWhiteSpace(imgFile))
+                                continue;
+                            msg2.Text = $"正在打印:{value}";
+                            //打印预览
+                            //PrintPreviewDialog ppd = new PrintPreviewDialog();
+                            pd = new PrintDocument();
+                            //设置边距
+                            Margins margin = new Margins(20, 20, 20, 20);
+                            pd.DefaultPageSettings.Margins = margin;
+                            ////纸张设置默认
+                            //PaperSize pageSize = new PaperSize("First custom size", 800, 600);
+                            //pd.DefaultPageSettings.PaperSize = pageSize;
+                            //打印事件设置
+                            pd.PrintPage += pd_PrintPage;
+                            //ppd.Document = pd;
+                            //ppd.ShowDialog();
+
+                            pd.Print();
+                        }
+                        msg2.Visible = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "打印出错", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+
+        }
+
+        private string imgFile = string.Empty;
+        private void pd_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            //读取图片模板
+            var temp = Image.FromFile(imgFile);
+            int x = e.MarginBounds.X;
+            int y = e.MarginBounds.Y;
+            int width = temp.Width;
+            int height = temp.Height;
+            Rectangle destRect = new Rectangle(x, y, width, height);
+            e.Graphics.DrawImage(temp, destRect, 0, 0, temp.Width, temp.Height, GraphicsUnit.Pixel);
         }
     }
 }
