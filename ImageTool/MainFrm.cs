@@ -221,7 +221,7 @@ namespace ImageTool
                             //ppd.ShowDialog();
 
                             pd.Print();
-                            break;
+                            //break;
                         }
                         msg2.Visible = false;
                     }
