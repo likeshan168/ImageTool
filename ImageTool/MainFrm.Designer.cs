@@ -45,13 +45,13 @@
             this.tabImageRename = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnImportPrintData = new Syncfusion.Windows.Forms.ButtonAdv();
-            this.batchPrint = new Syncfusion.Windows.Forms.ButtonAdv();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dgv2 = new System.Windows.Forms.DataGridView();
             this.msg2 = new System.Windows.Forms.LinkLabel();
             this.progressMsg2 = new MetroFramework.Controls.MetroLabel();
+            this.dgv2 = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.batchPrint = new Syncfusion.Windows.Forms.ButtonAdv();
+            this.btnImportPrintData = new Syncfusion.Windows.Forms.ButtonAdv();
             this.grp1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -59,14 +59,14 @@
             this.tabImageRename.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv2)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog
             // 
-            this.openFileDialog.Filter = "Excel files|*.xlsx|All files|*.*";
+            this.openFileDialog.Filter = "Excel files|*.xlsx;*.xls|All files|*.*";
             this.openFileDialog.RestoreDirectory = true;
             // 
             // grp1
@@ -230,46 +230,6 @@
             this.tabPage2.Text = "图片批量打印";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.batchPrint);
-            this.groupBox1.Controls.Add(this.btnImportPrintData);
-            this.groupBox1.Location = new System.Drawing.Point(8, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(745, 81);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "操作区";
-            // 
-            // btnImportPrintData
-            // 
-            this.btnImportPrintData.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro;
-            this.btnImportPrintData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-            this.btnImportPrintData.BeforeTouchSize = new System.Drawing.Size(126, 36);
-            this.btnImportPrintData.ForeColor = System.Drawing.Color.White;
-            this.btnImportPrintData.IsBackStageButton = false;
-            this.btnImportPrintData.Location = new System.Drawing.Point(48, 20);
-            this.btnImportPrintData.Name = "btnImportPrintData";
-            this.btnImportPrintData.Size = new System.Drawing.Size(126, 36);
-            this.btnImportPrintData.TabIndex = 0;
-            this.btnImportPrintData.Text = "导入数据列";
-            this.btnImportPrintData.UseVisualStyle = false;
-            this.btnImportPrintData.Click += new System.EventHandler(this.btnImportPrintData_Click);
-            // 
-            // batchPrint
-            // 
-            this.batchPrint.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro;
-            this.batchPrint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-            this.batchPrint.BeforeTouchSize = new System.Drawing.Size(119, 36);
-            this.batchPrint.ForeColor = System.Drawing.Color.White;
-            this.batchPrint.IsBackStageButton = false;
-            this.batchPrint.Location = new System.Drawing.Point(272, 20);
-            this.batchPrint.Name = "batchPrint";
-            this.batchPrint.Size = new System.Drawing.Size(119, 36);
-            this.batchPrint.TabIndex = 1;
-            this.batchPrint.Text = "批量打印图片";
-            this.batchPrint.Click += new System.EventHandler(this.batchPrint_Click);
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.msg2);
@@ -281,15 +241,6 @@
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "数据展示区";
-            // 
-            // dgv2
-            // 
-            this.dgv2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv2.Location = new System.Drawing.Point(6, 63);
-            this.dgv2.Name = "dgv2";
-            this.dgv2.RowTemplate.Height = 23;
-            this.dgv2.Size = new System.Drawing.Size(353, 249);
-            this.dgv2.TabIndex = 0;
             // 
             // msg2
             // 
@@ -314,6 +265,55 @@
             this.progressMsg2.TabIndex = 10;
             this.progressMsg2.Text = "总条数：0";
             // 
+            // dgv2
+            // 
+            this.dgv2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv2.Location = new System.Drawing.Point(6, 63);
+            this.dgv2.Name = "dgv2";
+            this.dgv2.RowTemplate.Height = 23;
+            this.dgv2.Size = new System.Drawing.Size(353, 249);
+            this.dgv2.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.batchPrint);
+            this.groupBox1.Controls.Add(this.btnImportPrintData);
+            this.groupBox1.Location = new System.Drawing.Point(8, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(745, 81);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "操作区";
+            // 
+            // batchPrint
+            // 
+            this.batchPrint.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro;
+            this.batchPrint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+            this.batchPrint.BeforeTouchSize = new System.Drawing.Size(119, 36);
+            this.batchPrint.ForeColor = System.Drawing.Color.White;
+            this.batchPrint.IsBackStageButton = false;
+            this.batchPrint.Location = new System.Drawing.Point(272, 20);
+            this.batchPrint.Name = "batchPrint";
+            this.batchPrint.Size = new System.Drawing.Size(119, 36);
+            this.batchPrint.TabIndex = 1;
+            this.batchPrint.Text = "批量打印图片";
+            this.batchPrint.Click += new System.EventHandler(this.batchPrint_Click);
+            // 
+            // btnImportPrintData
+            // 
+            this.btnImportPrintData.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro;
+            this.btnImportPrintData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+            this.btnImportPrintData.BeforeTouchSize = new System.Drawing.Size(126, 36);
+            this.btnImportPrintData.ForeColor = System.Drawing.Color.White;
+            this.btnImportPrintData.IsBackStageButton = false;
+            this.btnImportPrintData.Location = new System.Drawing.Point(48, 20);
+            this.btnImportPrintData.Name = "btnImportPrintData";
+            this.btnImportPrintData.Size = new System.Drawing.Size(126, 36);
+            this.btnImportPrintData.TabIndex = 0;
+            this.btnImportPrintData.Text = "导入数据列";
+            this.btnImportPrintData.UseVisualStyle = false;
+            this.btnImportPrintData.Click += new System.EventHandler(this.btnImportPrintData_Click);
+            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -330,10 +330,10 @@
             this.tabImageRename.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv2)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

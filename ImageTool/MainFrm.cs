@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using ImageTool.Helper;
 using MetroFramework;
 using MetroFramework.Forms;
 using Syncfusion.Windows.Forms;
@@ -221,7 +222,7 @@ namespace ImageTool
                             //ppd.ShowDialog();
 
                             pd.Print();
-                            //break;
+                            break;
                         }
                         msg2.Visible = false;
                     }
@@ -244,13 +245,14 @@ namespace ImageTool
             var temp = Image.FromFile(imgFile);
             int x = e.MarginBounds.X;
             int y = e.MarginBounds.Y;
-            //int width = temp.Width;
-            //int height = temp.Height;
-            //Rectangle destRect = new Rectangle(x, y, (int)width, (int)height);
-            //A4纸尺寸：210×297；
-            //e.Graphics.DrawImage(temp, destRect, 0, 0, width, height, GraphicsUnit.Pixel);
+            var newImg = ImageHelper.SizeImageWithOldPercent(temp, 400, 500);
+            int w = newImg.Width;
+            int h = newImg.Height;
+            Rectangle destRect = new Rectangle(x, y, 500, 580);
+            //A4纸尺寸：210×297；指定大小
+            e.Graphics.DrawImage(newImg, destRect, 0, 0, 400, 500, GraphicsUnit.Pixel);
             //自适应大小
-            e.Graphics.DrawImage(temp, e.MarginBounds);
+            //e.Graphics.DrawImage(ImageHelper.SizeImageWithOldPercent(temp, 140, 180), e.MarginBounds);
         }
 
         private static double MillimetersToPixelsWidth(double length) //length是毫米，1厘米=10毫米
